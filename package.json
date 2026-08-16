@@ -28,7 +28,8 @@
     "lib",
     "cordis.patch.yml",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "assets"
   ],
   "license": "MIT",
   "keywords": [
