@@ -16,12 +16,14 @@ DeepSeek Harness（DSH）钱包插件 —— 在左栏底部常驻显示 **DeepS
 
 ## 🖼 界面
 
+![screenshot](assets/screenshot.png)
+
 左栏（侧边栏）底部常驻一块「DeepSeek 钱包」面板（约 1/4 高度）：
 
 ```
 DeepSeek 钱包                     ↻
 余额 CNY 36.66
-本会话消耗  ¥1.23        ← 悬停展开 token/金额明细
+本会话消耗  ¥1.23 [基础价]  ← 悬停展开 token/金额明细
 ⚠ 余额偏低，建议充值
 [充值] [API Key] [明细]
 ```
