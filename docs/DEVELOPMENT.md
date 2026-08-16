@@ -79,3 +79,28 @@ Client（浏览器）
 - 做「余额/用量」类插件：直接参考 dsh-balance-meter 的 `sessionCost`（sessionProjections + 价格表）模式。
 - 做「在 DSH 内打开第三方网页」：桌面端 `NewWindowRequested` + 无边框 16:9 ChildForm + 失焦关闭 + 单例复用 + `DOMContentLoaded` 注入 CSS 隐藏第三方导航。
 - UI 弹窗：优先 16:9、无边框、点击外部失焦关闭（已沉淀进 `ui-design` skill）。
+
+## 八、v1.2.0 → v1.3.0 迭代复盘（2026-08-17）
+
+本阶段新增：今日累计 + 7 天折线图 + 官方用量接口 + 阈值持久化 + 退避重试 + 折叠/通知 + 一键安装 + 中英 README + 桌面内化补丁 + 插图。
+
+### 数据正确性
+16. **今日累计严重虚高（分叉子会话重复计数）**：`scanHistory` 扫描所有会话求和时，分叉子会话（subagent）会把父会话历史作为 seed 事件复制进自己的日志，导致同一批事件在父 + 每个子会话里各算一遍。→ 回扫时跳过 `seq < header.seedLength` 的继承事件（seedLength 是 fork 边界，父会话正常、子会话跳过 seed）。
+17. **官方用量接口：API Key 查不到，必须用平台 userToken**。`/user/balance` 只能用 API Key（`sk-` 开头）；用量明细 `platform.deepseek.com/api/v0/usage/cost?month=&year=` 只能用登录后的 userToken（localStorage `userToken`，值是 `{"value":"...","__version":"0"}`，取 `.value`）。鉴权失败也返回 HTTP 200，body `code:40003`（判 code 而非 status）。
+18. **官方 cost 接口结构**：`data.biz_data[0].days[].data[].usage[]`，`amount` 是**成本金额（元）**，type 标签是 token 类型名（PROMPT_CACHE_HIT_TOKEN 等，误导性）。返回整月含未来日期（全 0），需过滤 `date > 今天`。
+19. **配置文件 UTF-8 BOM 坑**：PowerShell `Set-Content -Encoding UTF8` 会带 BOM，`JSON.parse` 直接报错 → 读配置时 `.replace(/^\uFEFF/, '')` 容错；写配置用 node `writeFile`（无 BOM）。
+
+### 交互/UI
+20. **阈值回车不生效**：原实现等 POST 返回才更新 UI，中间 `setThresholdDraft(null)` 回退到旧值，看起来像没生效。→ 乐观更新：回车/失焦先 `setCost(c => c ? {...c, costThreshold: t} : c)` 立即反映，再异步 POST 持久化。
+21. **折叠按钮「点了没用」**：hover 展开（peek）把点击态顶回去——点折叠后鼠标还悬停在面板上，`collapsed = !open && !peek` 因 peek=true 仍为展开。→ 要么纯点击切换（删 peek），要么点击时 `setPeek(false)` 立即收起。最终用户嫌逻辑复杂，**整个折叠删掉了**。
+22. **折叠 + 悬浮 tooltip 被裁切**：`grid-template-rows: 1fr/0fr` 折叠要求内层 `overflow:hidden`，会裁掉绝对定位的悬浮明细。→ tooltip 用 `position:fixed`（React state 定位），渲染在 overflow 容器之外。
+
+### 插图/发布
+23. **README 截图（无真实截图时）**：用 Edge headless `msedge --headless --disable-gpu --hide-scrollbars --screenshot=out.png --window-size=W,H file:///...` 渲染自绘 HTML 面板 mockup。坑：`html` 没设背景时截图底部是透明的 → 设 `html{background:...}`；主题切换用 query 参数 + `documentElement.classList`。
+24. **Ollama 卸载**：视觉识图早已迁到 llama-cpp-server（端口 8080），Ollama 成冗余且开机自启动（Startup 快捷方式 `Ollama.lnk`）。→ 移除 Startup 快捷方式 + 静默卸载（`unins000.exe /S`）。
+
+## 九、发布结果
+
+- GitHub：https://github.com/Ln1m/dsh-wallet（v1.3.0）
+- npm：dsh-wallet@1.3.0
+
