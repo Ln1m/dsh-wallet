@@ -10,6 +10,7 @@ DeepSeek Harness（DSH）钱包插件 —— 在左栏底部常驻显示 **DeepS
 | 会话成本 | 用 DSH token-meter 投影 × 官方价格表，实时估算**当前会话消耗金额**；悬停金额展开输入 / 缓存命中 / 输出的 token 量与金额明细 |
 | 峰谷计价 | 已内置 2026-08-17 生效的官方峰谷价：高峰时段（北京 9:00–12:00、14:00–18:00）自动按高峰价，其余空闲价 |
 | 低余额告警 | CNY < ¥10 或 USD < $2 时面板标红提醒充值 |
+| 消耗上限 | 可编辑单会话消耗上限（默认 ¥5），超限时居中提示「上下文过长，建议新建对话避免余额浪费」 |
 | 一键充值 | 点击「充值」在 **DSH 窗口内**打开官方充值页 `platform.deepseek.com/top_up`（不弹系统浏览器） |
 | API Key | 自动读取 DSH 凭据 `DEEPSEEK_API_KEY`，点击「API Key」在 DSH 窗口内打开官方 Keys 页 |
 | 用量明细 | 点击「明细」在 DSH 窗口内打开官方用量页 `platform.deepseek.com/usage` |
@@ -24,6 +25,10 @@ DeepSeek Harness（DSH）钱包插件 —— 在左栏底部常驻显示 **DeepS
 完整界面：
 
 ![界面](https://cdn.jsdelivr.net/gh/Ln1m/dsh-wallet@main/assets/screenshot.jpg)
+
+消耗上限设置（可编辑）与上下文过长告警：
+
+![消耗上限](https://cdn.jsdelivr.net/gh/Ln1m/dsh-wallet@main/assets/screenshot-updated.png)
 
 ```
 DeepSeek 钱包                     ↻

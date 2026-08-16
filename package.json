@@ -1,7 +1,7 @@
 {
   "name": "dsh-wallet",
-  "version": "1.0.1",
-  "description": "DeepSeek 钱包（DSH 插件）：余额查询 · 会话成本 · 峰谷计价 · 一键充值/用量/API Key（左栏常驻面板）",
+  "version": "1.1.0",
+  "description": "DeepSeek 钱包（DSH 插件）：余额查询 · 会话成本 · 峰谷计价 · 消耗上限告警 · 一键充值/用量/API Key（左栏常驻面板）",
   "type": "module",
   "main": "lib/index.js",
   "exports": {
