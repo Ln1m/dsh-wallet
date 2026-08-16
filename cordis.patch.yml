@@ -1,0 +1,8 @@
+# dsh-wallet plugin patch: inserts the dual-face plugin row into the
+# web profile roster. The node half (exports ".") runs in the host process
+# (balance polling, usage aggregation, /wallet/api routes), and the
+# `dsh.client` declaration in package.json makes the browser half
+# (exports "./client") load in the web GUI.
+- insert:
+    - id: dsh-wallet
+      name: 'dsh-wallet'
