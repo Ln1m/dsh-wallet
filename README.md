@@ -17,9 +17,13 @@ DeepSeek Harness（DSH）钱包插件 —— 在左栏底部常驻显示 **DeepS
 
 ## 🖼 界面
 
-![screenshot](assets/screenshot.png)
-
 左栏（侧边栏）底部常驻一块「DeepSeek 钱包」面板（约 1/4 高度）：
+
+![面板](assets/screenshot-panel.png)
+
+完整界面：
+
+![界面](assets/screenshot.png)
 
 ```
 DeepSeek 钱包                     ↻
