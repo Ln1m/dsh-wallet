@@ -12,6 +12,7 @@ DeepSeek Harness（DSH）钱包插件 —— 在左栏底部常驻显示 **DeepS
 | 低余额告警 | CNY < ¥10 或 USD < $2 时面板标红提醒充值 |
 | 一键充值 | 点击「充值」在 **DSH 窗口内**打开官方充值页 `platform.deepseek.com/top_up`（不弹系统浏览器） |
 | API Key | 自动读取 DSH 凭据 `DEEPSEEK_API_KEY`，点击「API Key」在 DSH 窗口内打开官方 Keys 页 |
+| 用量明细 | 点击「明细」在 DSH 窗口内打开官方用量页 `platform.deepseek.com/usage` |
 | 模型工具 | 注册 `query_deepseek_balance`，直接问「余额还剩多少」AI 也能答 |
 
 ## 🖼 界面
