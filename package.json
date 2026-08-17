@@ -1,6 +1,6 @@
 {
   "name": "dsh-wallet",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "DeepSeek 钱包（DSH 插件）：余额查询 · 今日累计/7天趋势 · 会话成本 · 峰谷计价 · 提醒阈值 · 系统通知 · 一键充值/用量/API Key（左栏常驻面板）",
   "type": "module",
   "main": "lib/index.js",

@@ -99,8 +99,12 @@ Client（浏览器）
 23. **README 截图（无真实截图时）**：用 Edge headless `msedge --headless --disable-gpu --hide-scrollbars --screenshot=out.png --window-size=W,H file:///...` 渲染自绘 HTML 面板 mockup。坑：`html` 没设背景时截图底部是透明的 → 设 `html{background:...}`；主题切换用 query 参数 + `documentElement.classList`。
 24. **Ollama 卸载**：视觉识图早已迁到 llama-cpp-server（端口 8080），Ollama 成冗余且开机自启动（Startup 快捷方式 `Ollama.lnk`）。→ 移除 Startup 快捷方式 + 静默卸载（`unins000.exe /S`）。
 
+### v1.3.1 修复（2026-08-17）
+25. **本会话成本「全按当前时段计价」错误**：原实现用 `sessionProjections`（会话累计 token）直接 × `effectiveCostAt(当前时刻)`，导致高峰时段打开面板时，把整天（含空闲时段）的 token 全按高峰价算。→ **分段计费**：从事件流按 `bandAt(event.time)`（base/offPeak/peak）把每个会话的 token 分桶，成本 = Σ(各档 token × 各档单价)。会话成本改用 `perSession`（事件流分桶）而非 `sessionProjections`（无时间维度）。配套：`ensureSessionIngested` 在 cost 路由里对未扫过的旧会话按需回扫，避免切换到旧会话时成本归零。
+26. **运行副本位置变了**：声明 `dsh.bundle.patch` 后，重启时 dsh loader 会从 npm 把插件解析到 `profiles\web\node_modules\dsh-wallet`（而非旧的 `profiles\node_modules\dsh-wallet` 手动副本）。→ 本地改完要么同步到新位置，要么直接发 npm 新版本；手动副本路径已废弃。
+
 ## 九、发布结果
 
-- GitHub：https://github.com/Ln1m/dsh-wallet（v1.3.0）
-- npm：dsh-wallet@1.3.0
+- GitHub：https://github.com/Ln1m/dsh-wallet（v1.3.1）
+- npm：dsh-wallet@1.3.1
 
